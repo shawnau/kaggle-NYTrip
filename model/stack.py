@@ -8,7 +8,7 @@ class Stack(object):
         self.label = label      # train label, numpy array
         self.test = test        # test data, numpy array
         self.layer_1 = layer_1  # models in layer 1, a list of models
-        self.layer_2 = layer_2  # model in layer 2, currently only support single model
+        self.layer_2 = layer_2  # model in layer 2, currently support single model only
         self.nfold = nfold
         self.seed = seed
 
@@ -61,7 +61,9 @@ class Stack(object):
         self.layer_2.fit(train_layer_2, self.label)
         return self.layer_2.predict(test_layer_2)
 
+
 if __name__ == '__main__':
+    # test case
     import xgboost as xgb
     from sklearn.ensemble import ExtraTreesClassifier
     from sklearn.ensemble import RandomForestClassifier
@@ -75,7 +77,6 @@ if __name__ == '__main__':
 
     Xtr, Xv, ytr, yv = train_test_split(X, y, test_size=0.2, random_state=1992)
 
-
     class SklearnWrapper(object):
         def __init__(self, clf, seed=0, params=None):
             params['random_state'] = seed
@@ -86,7 +87,6 @@ if __name__ == '__main__':
 
         def predict(self, x):
             return self.clf.predict(x)
-
 
     class XgbWrapper(object):
         def __init__(self, seed=0, params=None):
@@ -100,7 +100,6 @@ if __name__ == '__main__':
 
         def predict(self, x):
             return self.gbdt.predict(xgb.DMatrix(x))
-
 
     SEED = 1992
     et_params = {
