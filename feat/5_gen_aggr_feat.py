@@ -113,7 +113,7 @@ if __name__ == "__main__":
         dfTest = pickle.load(f)
 
     # Generate Features
-    print("Generate aggregate features...", end="")
+    print("Generate aggregate features...")
     dfTrain, dfTest = extract_aggr_feat(dfTrain, dfTest)
 
     # Dump Data
