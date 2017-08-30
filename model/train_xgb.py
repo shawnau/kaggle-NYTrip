@@ -21,10 +21,10 @@ dtrain = xgb.DMatrix(Xtr, label=ytr)
 dvalid = xgb.DMatrix(Xv, label=yv)
 watchlist = [(dtrain, 'train'), (dvalid, 'valid')]
 
-xgb_par = {'min_child_weight': 20,
-           'eta': 0.05,
+xgb_par = {'min_child_weight': 10,
+           'eta': 0.01,
            'colsample_bytree': 0.6,
-           'max_depth': 5,
+           'max_depth': 10,
            'subsample': 1.0,
            'lambda': 2.0,
            'nthread': -1,
@@ -37,7 +37,7 @@ xgb_par = {'min_child_weight': 20,
 train_dict = {}
 model = xgb.train(xgb_par,
                   dtrain,
-                  50000,
+                  20000,
                   evals=watchlist,
                   evals_result=train_dict,
                   early_stopping_rounds=50,

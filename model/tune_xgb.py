@@ -31,10 +31,10 @@ watchlist = [(dtrain, 'train'), (dvalid, 'valid')]
 xgb_pars = []
 train_dict = {}
 cv_log = []
-for MCW in [20]:
-    for ETA in [0.05, 0.02, 0.01]:
-        for CS in [0.4, 0.6, 0.8]: # 0.6 < 0.7 < 0.5
-            for MD in [4, 5]: # 5 or 6 seems better to convergence
+for MCW in [5, 10]:
+    for ETA in [0.01]:
+        for CS in [0.6]: # 0.6 < 0.7 < 0.5
+            for MD in [9, 10]: # 5 or 6 seems better to convergence
                 for SS in [1.0]:
                     for LAMBDA in [2.0]:
                         xgb_pars.append({'min_child_weight': MCW,
@@ -54,15 +54,20 @@ for xgb_par in xgb_pars:
     print(xgb_par)
     model = xgb.train(xgb_par,
                       dtrain,
-                      5000,
+                      50000,
                       evals=watchlist,  # for xgb.train
                       evals_result=train_dict, # for xgb.train
                       early_stopping_rounds=50,
                       maximize=False,
-                      verbose_eval=20
+                      verbose_eval=500
                       # seed=1992  # for xgb.cv
                       )
     cv_log.append([xgb_par, copy.deepcopy(train_dict)])  # for xgb.cv
+    s = "MCW-%.2f-MD-%d" % (xgb_par['min_child_weight'], xgb_par['max_depth'])
+    print("Dump xgb model...", end="")
+    with open("xgb_model_%s.pkl" % (s), "wb") as f:
+        pickle.dump(model, f, -1)
+    print("Done")
 
 
 # dump log data
