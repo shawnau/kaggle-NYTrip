@@ -54,5 +54,5 @@ with open(config.processed_train_data_path, "wb") as f:
     pickle.dump(dfTrain, f, -1)
 with open(config.processed_test_data_path, "wb") as f:
     pickle.dump(dfTest, f, -1)
-    
+
 print("Done.")
