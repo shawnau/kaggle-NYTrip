@@ -82,15 +82,15 @@ if __name__ == '__main__':
        'number_of_steps'
        ]
 
-    print("Load data...")
+    print "Load data..."
     with open(config.processed_train_data_path, "rb") as f:
         dfTrain = pickle.load(f)
     with open(config.processed_test_data_path, "rb") as f:
         dfTest = pickle.load(f)
 
-    print("Dump final dataset...", end="")
+    print "Dump final dataset...",
     with open(config.final_train_data_path, "wb") as f:
         pickle.dump(dfTrain[feats + ['log_trip_duration']], f, -1)
     with open(config.final_test_data_path, "wb") as f:
         pickle.dump(dfTest[feats], f, -1)
-    print("Done.")
+    print "Done."

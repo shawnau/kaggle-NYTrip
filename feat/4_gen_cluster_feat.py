@@ -38,7 +38,7 @@ if __name__ == "__main__":
 
     # Generate Features
     # train kmeans
-    print("Training kmeans...")
+    print "Training kmeans..."
     coords = np.vstack((dfTrain[['pickup_latitude', 'pickup_longitude']].values,
                        dfTrain[['dropoff_latitude', 'dropoff_longitude']].values,
                        dfTest[['pickup_latitude', 'pickup_longitude']].values,
@@ -47,7 +47,7 @@ if __name__ == "__main__":
     sample_ind = np.random.permutation(len(coords))[:500000]
     kmeans = MiniBatchKMeans(n_clusters=100, batch_size=10000).fit(coords[sample_ind])
 
-    print("Generate cluster features...", end="")
+    print "Generate cluster features...", 
     extract_cluster_feat(kmeans, dfTrain)
     extract_cluster_feat(kmeans, dfTest)
 
@@ -56,4 +56,4 @@ if __name__ == "__main__":
         pickle.dump(dfTrain, f, -1)
     with open(config.processed_test_data_path, "wb") as f:
         pickle.dump(dfTest, f, -1)
-    print("Done.")
+    print "Done."

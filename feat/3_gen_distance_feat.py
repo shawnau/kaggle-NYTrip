@@ -63,7 +63,7 @@ if __name__ == "__main__":
         dfTest = pickle.load(f)
 
     # Generate Features
-    print("Generate diastance features...", end="")
+    print "Generate diastance features...",
     extract_distance_feat(dfTrain)
     extract_distance_feat(dfTest)
     extract_speed_feat(dfTrain)
@@ -73,4 +73,4 @@ if __name__ == "__main__":
         pickle.dump(dfTrain, f, -1)
     with open(config.processed_test_data_path, "wb") as f:
         pickle.dump(dfTest, f, -1)
-    print("Done.")
+    print "Done."

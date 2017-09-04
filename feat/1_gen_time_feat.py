@@ -23,6 +23,7 @@ __author__
 
 import sys
 import pickle
+import datetime as dt
 sys.path.append("../")
 from param_config import config
 
@@ -45,7 +46,7 @@ if __name__ == "__main__":
         dfTest = pickle.load(f)
 
     # Generate Features
-    print("Generate time features...", end="")
+    print "Generate time features...", 
     extract_time_feat(dfTrain)
     extract_time_feat(dfTest)
 
@@ -54,4 +55,4 @@ if __name__ == "__main__":
         pickle.dump(dfTrain, f, -1)
     with open(config.processed_test_data_path, "wb") as f:
         pickle.dump(dfTest, f, -1)
-    print("Done.")
+    print "Done."

@@ -45,7 +45,7 @@ if __name__ == "__main__":
         dfTest = pickle.load(f)
 
     # Generate Features
-    print("Generate osrm features...", end="")
+    print "Generate osrm features...",
     dfTrain, dfTest = extract_osrm_feat(dfTrain, dfTest)
 
     # Dump Data
@@ -53,4 +53,4 @@ if __name__ == "__main__":
         pickle.dump(dfTrain, f, -1)
     with open(config.processed_test_data_path, "wb") as f:
         pickle.dump(dfTest, f, -1)
-    print("Done.")
+    print "Done."

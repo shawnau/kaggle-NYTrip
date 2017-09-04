@@ -22,16 +22,16 @@ from param_config import config
 
 
 # Load Data
-print("Load data...", end="")
+print "Load data...",
 
 dfTrain = pd.read_csv(config.original_train_data_path)
 dfTest = pd.read_csv(config.original_test_data_path)
 
-print("Done.")
+print "Done."
 
 
 # Pre-process Data
-print("Pre-process data...", end="")
+print "Pre-process data...",
 
 # encode Y/N into 1/0
 dfTrain['store_and_fwd_flag'] = 1 * (dfTrain.store_and_fwd_flag.values == 'Y')
@@ -44,15 +44,15 @@ dfTest['pickup_datetime'] = pd.to_datetime(dfTest.pickup_datetime)
 # log transform of the label to predict (turn RMSLE into RMSE)
 dfTrain['log_trip_duration'] = np.log(dfTrain['trip_duration'].values + 1)
 
-print("Done.")
+print "Done."
 
 
 # Save Data
-print("Save data...", end="")
+print "Save data...",
 
 with open(config.processed_train_data_path, "wb") as f:
     pickle.dump(dfTrain, f, -1)
 with open(config.processed_test_data_path, "wb") as f:
     pickle.dump(dfTest, f, -1)
     
-print("Done.")
+print "Done."

@@ -1,3 +1,4 @@
+# coding:utf-8
 """
 __file__
 
@@ -58,14 +59,14 @@ if __name__ == "__main__":
 
     # Generate Features
     # train PCA
-    print("Training PCA...")
+    print "Training PCA..."
     coords = np.vstack((dfTrain[['pickup_latitude', 'pickup_longitude']].values,
                        dfTrain[['dropoff_latitude', 'dropoff_longitude']].values,
                        dfTest[['pickup_latitude', 'pickup_longitude']].values,
                        dfTest[['dropoff_latitude', 'dropoff_longitude']].values))
     pca = PCA().fit(coords)
 
-    print("Generate coord features...", end="")
+    print "Generate coord features...",
     extrect_coord_feat(pca, dfTrain)
     extrect_coord_feat(pca, dfTest)
 
@@ -74,4 +75,4 @@ if __name__ == "__main__":
         pickle.dump(dfTrain, f, -1)
     with open(config.processed_test_data_path, "wb") as f:
         pickle.dump(dfTest, f, -1)
-    print("Done.")
+    print "Done."
