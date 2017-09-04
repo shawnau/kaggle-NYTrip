@@ -13,10 +13,11 @@ import h2o
 from h2o.estimators.gbm import H2OGradientBoostingEstimator
 from h2o.grid.grid_search import H2OGridSearch
 
-h2o.init(max_mem_size='20g')
+h2o.init(max_mem_size='24g')
 print("Load data...")
 with open(config.final_train_data_path, "rb") as f:
     dfTrain = pickle.load(f)
+
 
 trainDf = pandas_to_h2o(dfTrain)
 
@@ -27,17 +28,19 @@ train, valid = trainDf.split_frame(ratios=[0.8], seed=1992)
 
 gbm_param = {
     'stopping_metric': 'rmse',
-    'stopping_rounds': 2
+    'stopping_rounds': 3,
+    'col_sample_rate': 0.6,
+    'sample_rate': 1.0,
+    'learn_rate_annealing': 0.999
 }
 
 gd_params = {
-    'ntrees': [20000],
-    'sample_rate': [0.8, 0.9, 1.0],
-    'col_sample_rate': [0.6, 0.8, 1.0],
-    'learn_rate': [0.01],
-    'max_depth': [10]
+    'ntrees': [1000],
+    'learn_rate': [0.1],
+    'max_depth': [10, 12, 14, 16]
 }
 
+print("Grid Searching...")
 grid_search = H2OGridSearch(H2OGradientBoostingEstimator(**gbm_param), hyper_params=gd_params)
 grid_search.train(x=predict, y=response, training_frame=train, validation_frame=valid)
 # gbm.train(x=predict, y=response, training_frame=train, validation_frame=valid)
