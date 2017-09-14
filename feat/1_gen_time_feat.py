@@ -14,6 +14,9 @@ __description__
         5. pickup_minute
         6. pickup_dt
         7. pickup_week_hour
+        8. week_delta
+        9. week_delta_sin
+        10. hour_sin
 
 __author__
 
@@ -27,6 +30,7 @@ import datetime as dt
 sys.path.append("../")
 from param_config import config
 
+
 def extract_time_feat(df):
     df['pickup_date']            = df['pickup_datetime'].dt.date
     df['pickup_weekday']         = df['pickup_datetime'].dt.weekday
@@ -35,7 +39,10 @@ def extract_time_feat(df):
     df['pickup_minute']          = df['pickup_datetime'].dt.minute
     df['pickup_dt']              = (df['pickup_datetime'] - df['pickup_datetime'].min()).dt.total_seconds()
     df['pickup_week_hour']       = df['pickup_weekday'] * 24 + df['pickup_hour']
-
+    df['week_delta']             = df['pickup_datetime'].dt.weekday + \
+                                   ((df['pickup_datetime'].dt.hour + (df['pickup_datetime'].dt.minute / 60.0)) / 24.0)
+    df.loc['week_delta_sin'] = np.sin((df['week_delta'] / 7) * np.pi)**2
+    df.loc['hour_sin'] = np.sin((df['pickup_hour'] / 24) * np.pi)**2
 
 if __name__ == "__main__":
 
