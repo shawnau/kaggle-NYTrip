@@ -1,5 +1,4 @@
 import numpy as np
-import h2o
 
 # 从经纬度计算直线距离, 需要考虑到地球半径
 def haversine_array(lat1, lng1, lat2, lng2):
@@ -28,9 +27,12 @@ def bearing_array(lat1, lng1, lat2, lng2):
     x = np.cos(lat1) * np.sin(lat2) - np.sin(lat1) * np.cos(lat2) * np.cos(lng_delta_rad)
     return np.degrees(np.arctan2(y, x))
 
+
 def pandas_to_h2o(pandasDf):
+    import h2o
     column_names = list(pandasDf.columns.values)
     return h2o.H2OFrame(pandasDf.values, column_names=column_names)
 
 def h2o_to_pandas(h2oDf):
+    import h2o
     return h2oDf.as_data_frame(use_pandas=True)
