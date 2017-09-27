@@ -1,8 +1,10 @@
 # Kaggle: New York City Taxi Trip Duration Solution
 
+[Competetion Link](https://www.kaggle.com/c/nyc-taxi-trip-duration)
+
 1. The public LB is involved with some leaked data. See [this discussion](https://www.kaggle.com/c/nyc-taxi-trip-duration/discussion/39545)
 2. My actual private LB score should be around 0.367.
-3. I was intended to use the unleaked data for private LB but overlooked the fact that at least 2 sets of data should be submitted or the system would use the data with best score. I was sorry for using the leaked data as my final score.
+3. I was intended to use the unleaked data for private LB but overlooked the fact that at least 2 sets of data should be submitted or the system would use the data with the best score, but I just merely submitted one set of data. I was sorry for using the leaked data as my final score.
 
 ## 评估标准
 RMSLE, 将预测数据做log变换之后再求均方误差
